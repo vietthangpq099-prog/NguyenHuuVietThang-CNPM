@@ -7,49 +7,41 @@ import { Product } from '@/types';
 import { formatPrice } from '@/lib/data/mock-products';
 import Badge from '@/components/ui/Badge';
 import { cn } from '@/lib/utils';
+import { useGioHang } from '@/lib/context/CartContext';
 
 interface ProductCardProps {
   product: Product;
   className?: string;
 }
 
-const colorMap: Record<string, string> = {
-  Gold: '#C9A84C',
-  Silver: '#A8A9AD',
-  Black: '#1a1a1a',
-  Blue: '#3B82F6',
-  Red: '#EF4444',
-  Coral: '#EF4444',
-  Green: '#22C55E',
-  Rose: '#F43F5E',
-  Pink: '#EC4899',
-  Tortoise: '#8B4513',
-  White: '#F5F5F5',
-  Grey: '#6B7280',
-  Bronze: '#CD7F32',
-  Navy: '#1e3a5f',
-  Lavender: '#9F7AEA',
+const bangMauSac: Record<string, string> = {
+  Gold: '#C9A84C', Silver: '#A8A9AD', Black: '#1a1a1a', Blue: '#3B82F6',
+  Red: '#EF4444', Coral: '#EF4444', Green: '#22C55E', Rose: '#F43F5E',
+  Pink: '#EC4899', Tortoise: '#8B4513', White: '#F5F5F5', Grey: '#6B7280',
+  Bronze: '#CD7F32', Navy: '#1e3a5f', Lavender: '#9F7AEA',
 };
 
-function getColorHex(colorName: string): string {
-  for (const [key, hex] of Object.entries(colorMap)) {
-    if (colorName.includes(key)) return hex;
+function layMauHex(tenMau: string): string {
+  for (const [key, hex] of Object.entries(bangMauSac)) {
+    if (tenMau.includes(key)) return hex;
   }
   return '#9CA3AF';
 }
 
 export default function ProductCard({ product, className }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
-  const [addedToCart, setAddedToCart] = useState(false);
+  const [daThich, setDaThich] = useState(false);
+  const [daThemVaoGio, setDaThemVaoGio] = useState(false);
+  const { themVaoGio } = useGioHang();
 
-  const discount = product.originalPrice
+  const phanTramGiam = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : null;
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const xuLyThemVaoGio = (e: React.MouseEvent) => {
     e.preventDefault();
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
+    themVaoGio(product, product.colors[0] || 'Mặc định');
+    setDaThemVaoGio(true);
+    setTimeout(() => setDaThemVaoGio(false), 2000);
   };
 
   return (
@@ -60,50 +52,43 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         className
       )}
     >
-      {/* Image Container */}
-      <Link href={`/products/${product.id}`}>
+      {/* Ảnh sản phẩm */}
+      <Link href={`/san-pham/${product.id}`}>
         <div className="relative aspect-square bg-neutral-50 overflow-hidden">
-          {/* Placeholder */}
           <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
             <span className="text-7xl opacity-20 select-none">🕶️</span>
           </div>
-
-          {/* Hover overlay */}
           <div className="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <span className="flex items-center gap-2 bg-white text-neutral-900 text-sm font-semibold px-4 py-2 rounded-full shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
               <Eye size={15} />
               Xem chi tiết
             </span>
           </div>
-
-          {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
             {product.isNew && <Badge variant="new" />}
             {product.isSale && <Badge variant="sale" />}
             {product.isBestseller && <Badge variant="bestseller" />}
           </div>
-
-          {/* Discount % */}
-          {discount && (
+          {phanTramGiam && (
             <div className="absolute top-3 right-12 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
-              -{discount}%
+              -{phanTramGiam}%
             </div>
           )}
         </div>
       </Link>
 
-      {/* Wishlist */}
+      {/* Nút yêu thích */}
       <button
-        onClick={() => setIsWishlisted(!isWishlisted)}
+        onClick={() => setDaThich(!daThich)}
         className="absolute top-3 right-3 p-2 rounded-full bg-white shadow-md text-neutral-400 hover:text-red-500 transition-colors duration-200 z-10 cursor-pointer"
         aria-label="Thêm vào yêu thích"
       >
-        <Heart size={17} className={isWishlisted ? 'fill-red-500 text-red-500' : ''} />
+        <Heart size={17} className={daThich ? 'fill-red-500 text-red-500' : ''} />
       </button>
 
-      {/* Product Info */}
+      {/* Thông tin sản phẩm */}
       <div className="p-4">
-        <Link href={`/products/${product.id}`} className="block group/link">
+        <Link href={`/san-pham/${product.id}`} className="block group/link">
           <p className="text-xs text-[#C9A84C] font-semibold uppercase tracking-wider mb-1">
             {product.brand}
           </p>
@@ -112,30 +97,24 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           </h3>
         </Link>
 
-        {/* Rating */}
+        {/* Đánh giá */}
         <div className="flex items-center gap-1.5 mb-3">
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={12}
-                className={i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-neutral-300'}
-              />
+              <Star key={i} size={12} className={i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-neutral-300'} />
             ))}
           </div>
-          <span className="text-xs text-neutral-500">
-            {product.rating} ({product.reviewCount})
-          </span>
+          <span className="text-xs text-neutral-500">{product.rating} ({product.reviewCount} đánh giá)</span>
         </div>
 
-        {/* Colors */}
+        {/* Màu sắc */}
         <div className="flex items-center gap-1.5 mb-3">
-          {product.colors.slice(0, 4).map((color, i) => (
+          {product.colors.slice(0, 4).map((mau, i) => (
             <div
               key={i}
               className="w-4 h-4 rounded-full border border-neutral-200 cursor-pointer hover:scale-125 transition-transform"
-              style={{ backgroundColor: getColorHex(color) }}
-              title={color}
+              style={{ backgroundColor: layMauHex(mau) }}
+              title={mau}
             />
           ))}
           {product.colors.length > 4 && (
@@ -143,7 +122,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           )}
         </div>
 
-        {/* Price + Cart */}
+        {/* Giá + Thêm vào giỏ */}
         <div className="flex items-center justify-between">
           <div>
             <span className="font-bold text-neutral-900 text-sm">{formatPrice(product.price)}</span>
@@ -153,12 +132,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               </span>
             )}
           </div>
-
           <button
-            onClick={handleAddToCart}
+            onClick={xuLyThemVaoGio}
             className={cn(
               'p-2.5 rounded-full transition-all duration-200 cursor-pointer',
-              addedToCart
+              daThemVaoGio
                 ? 'bg-emerald-500 text-white'
                 : 'bg-neutral-900 text-white hover:bg-[#C9A84C]'
             )}

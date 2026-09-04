@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { GioHangProvider } from '@/lib/context/CartContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,13 +33,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen flex flex-col bg-white">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <GioHangProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </GioHangProvider>
       </body>
     </html>
   );
