@@ -31,25 +31,25 @@ function YoutubeIcon({ size = 16 }: { size?: number }) {
 
 const footerLinks = {
   products: [
-    { label: 'Kính Mát', href: '/products?category=sunglasses' },
-    { label: 'Kính Cận', href: '/products?category=eyeglasses' },
-    { label: 'Kính Thời Trang', href: '/products?category=fashion' },
-    { label: 'Kính Thể Thao', href: '/products?category=sports' },
-    { label: 'Sản Phẩm Mới', href: '/products?filter=new' },
+    { label: 'Kính Mát',       href: '/san-pham?danh-muc=sunglasses' },
+    { label: 'Kính Cận',       href: '/san-pham?danh-muc=eyeglasses' },
+    { label: 'Kính Thời Trang', href: '/san-pham?danh-muc=fashion' },
+    { label: 'Kính Thể Thao',  href: '/san-pham?danh-muc=sports' },
+    { label: 'Sản Phẩm Mới',   href: '/san-pham' },
   ],
   services: [
-    { label: 'Đo Thị Lực Miễn Phí', href: '/services/eye-test' },
-    { label: 'Lắp Tròng Kính', href: '/services/lens-fitting' },
-    { label: 'Sửa Chữa & Điều Chỉnh', href: '/services/repair' },
-    { label: 'Chính Sách Bảo Hành', href: '/warranty' },
-    { label: 'Đổi Trả Hàng', href: '/return-policy' },
+    { label: 'Dịch Vụ Bảo Hành',   href: '/bao-hanh' },
+    { label: 'Vệ Sinh Kính Miễn Phí', href: '/bao-hanh' },
+    { label: 'Nắn Chỉnh Gọng',     href: '/bao-hanh' },
+    { label: 'Đổi Trả 7 Ngày',     href: '/bao-hanh' },
+    { label: 'Giao Hàng Toàn Quốc', href: '/san-pham' },
   ],
   company: [
-    { label: 'Về Chúng Tôi', href: '/about' },
-    { label: 'Hệ Thống Cửa Hàng', href: '/stores' },
-    { label: 'Tuyển Dụng', href: '/careers' },
-    { label: 'Blog Sức Khoẻ Mắt', href: '/blog' },
-    { label: 'Liên Hệ', href: '/contact' },
+    { label: 'Về Chúng Tôi',      href: '/gioi-thieu' },
+    { label: 'Hệ Thống Cửa Hàng', href: '/gioi-thieu' },
+    { label: 'Đơn Hàng Của Tôi',  href: '/don-hang' },
+    { label: 'Đăng Nhập',         href: '/dang-nhap' },
+    { label: 'Đăng Ký Tài Khoản', href: '/dang-ky' },
   ],
 };
 

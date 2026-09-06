@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: 'Times New Roman', Times, serif;
+  --font-serif: 'Times New Roman', Times, serif;
 
   /* Accent - Gold */
   --color-accent: #C9A84C;

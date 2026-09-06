@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { GioHangProvider } from '@/lib/context/CartContext';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair', display: 'swap' });
 
 export const metadata: Metadata = {
   title: { default: 'OpticShop — Kính Mắt Cao Cấp', template: '%s | OpticShop' },
@@ -15,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-white">
+    <html lang="vi">
+      <body className="min-h-screen bg-white" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
         <GioHangProvider>
           {children}
         </GioHangProvider>

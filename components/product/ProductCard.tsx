@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, Heart, Star, Eye } from 'lucide-react';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/data/mock-products';
@@ -44,6 +45,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     setTimeout(() => setDaThemVaoGio(false), 2000);
   };
 
+  const anhChinh = product.images[0];
+
   return (
     <div
       className={cn(
@@ -54,16 +57,30 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     >
       {/* Ảnh sản phẩm */}
       <Link href={`/san-pham/${product.id}`}>
-        <div className="relative aspect-square bg-neutral-50 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
-            <span className="text-7xl opacity-20 select-none">🕶️</span>
-          </div>
-          <div className="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="relative aspect-square bg-neutral-100 overflow-hidden">
+          {anhChinh ? (
+            <Image
+              src={anhChinh}
+              alt={product.name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
+              <span className="text-7xl opacity-20 select-none">🕶️</span>
+            </div>
+          )}
+
+          {/* Overlay hover */}
+          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <span className="flex items-center gap-2 bg-white text-neutral-900 text-sm font-semibold px-4 py-2 rounded-full shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
               <Eye size={15} />
               Xem chi tiết
             </span>
           </div>
+
+          {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
             {product.isNew && <Badge variant="new" />}
             {product.isSale && <Badge variant="sale" />}
@@ -92,7 +109,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           <p className="text-xs text-[#C9A84C] font-semibold uppercase tracking-wider mb-1">
             {product.brand}
           </p>
-          <h3 className="font-semibold text-neutral-900 text-sm leading-tight mb-2 group-hover/link:text-[#C9A84C] transition-colors duration-200 line-clamp-2 font-sans">
+          <h3 className="font-semibold text-neutral-900 text-sm leading-tight mb-2 group-hover/link:text-[#C9A84C] transition-colors duration-200 line-clamp-2">
             {product.name}
           </h3>
         </Link>
@@ -104,7 +121,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               <Star key={i} size={12} className={i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-neutral-300'} />
             ))}
           </div>
-          <span className="text-xs text-neutral-500">{product.rating} ({product.reviewCount} đánh giá)</span>
+          <span className="text-xs text-neutral-500">{product.rating} ({product.reviewCount})</span>
         </div>
 
         {/* Màu sắc */}
