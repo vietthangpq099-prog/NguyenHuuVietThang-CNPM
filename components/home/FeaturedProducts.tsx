@@ -43,7 +43,7 @@ export default function FeaturedProducts() {
           </div>
 
           <Link
-            href="/products"
+            href="/san-pham"
             className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-neutral-600 hover:text-[#C9A84C] transition-colors duration-200 group"
           >
             Xem tất cả
@@ -86,7 +86,7 @@ export default function FeaturedProducts() {
         {/* Mobile view all */}
         <div className="sm:hidden text-center mt-8">
           <Link
-            href="/products"
+            href="/san-pham"
             className="inline-flex items-center gap-2 border-2 border-neutral-200 text-neutral-700 hover:border-neutral-900 hover:text-neutral-900 font-semibold px-8 py-3 rounded-full transition-all duration-200"
           >
             Xem tất cả sản phẩm

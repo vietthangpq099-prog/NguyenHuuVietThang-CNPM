@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Trash2, Minus, Plus } from 'lucide-react';
 import { MucGioHang } from '@/lib/context/CartContext';
@@ -27,13 +28,28 @@ function layMauHex(tenMau: string): string {
 export default function GioHangItem({ muc }: GioHangItemProps) {
   const { xoaKhoiGio, capNhatSoLuong } = useGioHang();
   const { sanPham, soLuong, mauDaChon } = muc;
+  const [imgError, setImgError] = useState(false);
+  const anhDauTien = sanPham.images?.[0];
 
   return (
     <div className="flex gap-4 py-5 border-b border-neutral-100 last:border-0">
       {/* Ảnh sản phẩm */}
       <Link href={`/san-pham/${sanPham.id}`} className="flex-shrink-0">
-        <div className="w-24 h-24 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl flex items-center justify-center">
-          <span className="text-4xl opacity-25 select-none">🕶️</span>
+        <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+          {anhDauTien && !imgError ? (
+            <Image
+              src={anhDauTien}
+              alt={sanPham.name}
+              width={96}
+              height={96}
+              className="w-full h-full object-cover"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
+              <span className="text-4xl opacity-25 select-none">🕶️</span>
+            </div>
+          )}
         </div>
       </Link>
 

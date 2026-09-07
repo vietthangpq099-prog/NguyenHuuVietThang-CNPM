@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { mockProducts } from '@/lib/data/mock-products';
 import { ProductCategory, FrameShape, FrameStyle, Gender } from '@/types';
@@ -11,7 +12,8 @@ import ThanhSapXep from '@/components/san-pham/ThanhSapXep';
 type KieuSapXep = 'moi-nhat' | 'gia-tang' | 'gia-giam' | 'danh-gia';
 type KieuHienThi = 'luoi' | 'danh-sach';
 
-export default function TrangSanPham() {
+function TrangSanPhamNoiDung() {
+  const searchParams = useSearchParams();
   const [danhMuc, setDanhMuc] = useState<ProductCategory | ''>('');
   const [dangGong, setDangGong] = useState<FrameShape | ''>('');
   const [phongCach, setPhongCach] = useState<FrameStyle | ''>('');
@@ -21,6 +23,14 @@ export default function TrangSanPham() {
   const [sapXep, setSapXep] = useState<KieuSapXep>('moi-nhat');
   const [hienThi, setHienThi] = useState<KieuHienThi>('luoi');
   const [moBoLocMobile, setMoBoLocMobile] = useState(false);
+
+  // Đọc ?danh-muc= từ URL khi trang load
+  useEffect(() => {
+    const danhMucParam = searchParams.get('danh-muc');
+    if (danhMucParam) {
+      setDanhMuc(danhMucParam as ProductCategory);
+    }
+  }, [searchParams]);
 
   const xoaBoLoc = useCallback(() => {
     setDanhMuc(''); setDangGong(''); setPhongCach('');
@@ -173,5 +183,13 @@ export default function TrangSanPham() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function TrangSanPham() {
+  return (
+    <Suspense fallback={<div className="container-main py-10"><div className="h-96 animate-pulse bg-neutral-100 rounded-3xl" /></div>}>
+      <TrangSanPhamNoiDung />
+    </Suspense>
   );
 }

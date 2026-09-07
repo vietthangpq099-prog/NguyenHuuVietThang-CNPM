@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ShoppingCart, Search, Menu, X, ChevronDown, User, Eye } from 'lucide-react';
 import { useGioHang } from '@/lib/context/CartContext';
 
@@ -14,9 +15,9 @@ const danhMuc = [
 
 const menuDieuHuong = [
   { tenHienThi: 'Sản Phẩm', duongDan: '/san-pham', coDropdown: true },
-  { tenHienThi: 'Dịch Vụ', duongDan: '/dich-vu', coDropdown: false },
   { tenHienThi: 'Bảo Hành', duongDan: '/bao-hanh', coDropdown: false },
   { tenHienThi: 'Về Chúng Tôi', duongDan: '/gioi-thieu', coDropdown: false },
+  { tenHienThi: 'Tìm Kiếm', duongDan: '/tim-kiem', coDropdown: false },
 ];
 
 export default function Header() {
@@ -27,6 +28,17 @@ export default function Header() {
   const [moDropdown, setMoDropdown] = useState(false);
   const refTimKiem = useRef<HTMLInputElement>(null);
   const { gioHang } = useGioHang();
+  const router = useRouter();
+
+  const xuLyTimKiem = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (tuKhoa.trim()) {
+      router.push(`/tim-kiem?q=${encodeURIComponent(tuKhoa.trim())}`);
+      setMoTimKiem(false);
+      setTuKhoa('');
+      setMoMenuMobile(false);
+    }
+  };
 
   useEffect(() => {
     const xuLyScroll = () => setDaScroll(window.scrollY > 20);
@@ -135,25 +147,29 @@ export default function Header() {
             {/* Tìm kiếm */}
             <div className="relative flex items-center">
               {moTimKiem && (
-                <div className="absolute right-10 top-1/2 -translate-y-1/2">
-                  <input
-                    ref={refTimKiem}
-                    type="text"
-                    value={tuKhoa}
-                    onChange={(e) => setTuKhoa(e.target.value)}
-                    placeholder="Tìm kiếm kính mắt..."
-                    className="w-64 sm:w-72 pl-4 pr-10 py-2 text-sm border border-neutral-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#C9A84C] focus:border-transparent bg-neutral-50"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Escape') { setMoTimKiem(false); setTuKhoa(''); }
-                    }}
-                  />
-                  <button
-                    onClick={() => { setMoTimKiem(false); setTuKhoa(''); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
-                  >
-                    <X size={15} />
-                  </button>
-                </div>
+                <form onSubmit={xuLyTimKiem} className="absolute right-10 top-1/2 -translate-y-1/2">
+                  <div className="relative">
+                    <input
+                      ref={refTimKiem}
+                      type="text"
+                      value={tuKhoa}
+                      onChange={(e) => setTuKhoa(e.target.value)}
+                      placeholder="Tìm kiếm kính mắt..."
+                      className="w-64 sm:w-72 pl-4 pr-10 py-2 text-sm border border-neutral-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#C9A84C] focus:border-transparent bg-neutral-50"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Escape') { setMoTimKiem(false); setTuKhoa(''); }
+                        if (e.key === 'Enter') xuLyTimKiem();
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => { setMoTimKiem(false); setTuKhoa(''); }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                    >
+                      <X size={15} />
+                    </button>
+                  </div>
+                </form>
               )}
               <button
                 onClick={() => setMoTimKiem(!moTimKiem)}
@@ -178,17 +194,16 @@ export default function Header() {
               )}
             </Link>
 
-            {/* Đơn hàng */}
-            <Link href="/don-hang" className="hidden sm:flex p-2 rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 transition-all duration-200" aria-label="Đơn hàng của tôi" title="Đơn hàng của tôi">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            {/* Tài khoản */}
+            <Link href="/tai-khoan" className="hidden sm:flex p-2 rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 transition-all duration-200" aria-label="Tài khoản của tôi" title="Tài khoản của tôi">
+              <User size={20} />
             </Link>
 
             {/* Đăng nhập */}
             <Link
               href="/dang-nhap"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-neutral-950 rounded-full hover:bg-neutral-700 transition-all duration-200"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-neutral-950 rounded-full hover:bg-[#C9A84C] transition-all duration-200"
             >
-              <User size={15} />
               Đăng nhập
             </Link>
 
@@ -211,14 +226,20 @@ export default function Header() {
         }`}
       >
         <div className="container-main pb-6 pt-2 border-t border-neutral-100">
-          <div className="relative mb-4">
+          <form onSubmit={xuLyTimKiem} className="relative mb-4">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
               type="text"
+              value={tuKhoa}
+              onChange={(e) => setTuKhoa(e.target.value)}
               placeholder="Tìm kiếm kính mắt..."
-              className="w-full pl-10 pr-4 py-2.5 text-sm border border-neutral-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#C9A84C] bg-neutral-50"
+              className="w-full pl-10 pr-16 py-2.5 text-sm border border-neutral-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#C9A84C] bg-neutral-50"
+              onKeyDown={(e) => { if (e.key === 'Enter') xuLyTimKiem(); }}
             />
-          </div>
+            <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 bg-neutral-950 text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#C9A84C] transition-colors cursor-pointer">
+              Tìm
+            </button>
+          </form>
           <div className="space-y-1 mb-4">
             {menuDieuHuong.map((muc) => (
               <Link
@@ -232,9 +253,7 @@ export default function Header() {
             ))}
           </div>
           <div className="border-t border-neutral-100 pt-4">
-            <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider px-4 mb-2">
-              Danh mục
-            </p>
+            <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider px-4 mb-2">Danh mục</p>
             <div className="grid grid-cols-2 gap-2">
               {danhMuc.map((dm) => (
                 <Link
@@ -249,19 +268,19 @@ export default function Header() {
               ))}
             </div>
           </div>
+          <div className="mt-4 pt-4 border-t border-neutral-100 space-y-2">
+            <Link href="/tai-khoan" className="flex items-center gap-2 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 rounded-xl" onClick={() => setMoMenuMobile(false)}>
+              <User size={15} /> Tài khoản của tôi
+            </Link>
+            <Link href="/don-hang" className="flex items-center gap-2 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 rounded-xl" onClick={() => setMoMenuMobile(false)}>
+              📦 Đơn hàng của tôi
+            </Link>
+          </div>
           <div className="flex gap-3 mt-4 pt-4 border-t border-neutral-100">
-            <Link
-              href="/dang-nhap"
-              className="flex-1 text-center py-2.5 text-sm font-semibold border-2 border-neutral-900 text-neutral-900 rounded-full hover:bg-neutral-900 hover:text-white transition-all duration-200"
-              onClick={() => setMoMenuMobile(false)}
-            >
+            <Link href="/dang-nhap" className="flex-1 text-center py-2.5 text-sm font-semibold border-2 border-neutral-900 text-neutral-900 rounded-full hover:bg-neutral-900 hover:text-white transition-all duration-200" onClick={() => setMoMenuMobile(false)}>
               Đăng nhập
             </Link>
-            <Link
-              href="/dang-ky"
-              className="flex-1 text-center py-2.5 text-sm font-semibold bg-[#C9A84C] text-white rounded-full hover:bg-[#A8893A] transition-all duration-200"
-              onClick={() => setMoMenuMobile(false)}
-            >
+            <Link href="/dang-ky" className="flex-1 text-center py-2.5 text-sm font-semibold bg-[#C9A84C] text-white rounded-full hover:bg-[#A8893A] transition-all duration-200" onClick={() => setMoMenuMobile(false)}>
               Đăng ký
             </Link>
           </div>
