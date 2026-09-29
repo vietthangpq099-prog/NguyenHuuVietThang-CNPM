@@ -15,7 +15,7 @@ const filterTabs: { id: FilterTab; label: string; emoji: string }[] = [
   { id: 'sale', label: 'Đang Sale', emoji: '💰' },
 ];
 
-export default function FeaturedProducts() {
+export default function SanPhamNoiBat() {
   const [activeFilter, setActiveFilter] = useState<FilterTab>('all');
 
   const filteredProducts = mockProducts

@@ -74,7 +74,7 @@ const perks = [
 ];
 
 
-export default function HeroBanner() {
+export default function BannerTrangChu() {
   // activeSlide: slide đang hiển thị (0 = slide 1, 1 = slide 2)
   const [activeSlide, setActiveSlide] = useState(0);
   const slide = slides[activeSlide];

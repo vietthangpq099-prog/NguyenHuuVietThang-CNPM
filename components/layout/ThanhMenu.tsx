@@ -20,7 +20,7 @@ const menuDieuHuong = [
   { tenHienThi: 'Tìm Kiếm', duongDan: '/tim-kiem', coDropdown: false },
 ];
 
-export default function Header() {
+export default function ThanhMenu() {
   const [moMenuMobile, setMoMenuMobile] = useState(false);
   const [daScroll, setDaScroll] = useState(false);
   const [moTimKiem, setMoTimKiem] = useState(false);

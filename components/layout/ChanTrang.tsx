@@ -53,7 +53,7 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+export default function ChanTrang() {
   return (
     <footer className="bg-neutral-950 text-neutral-300">
       {/* Main content */}

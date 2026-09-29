@@ -57,7 +57,7 @@ const categories = [
   },
 ];
 
-export default function CategoryGrid() {
+export default function DanhMucTrangChu() {
   return (
     <section className="section-padding bg-neutral-50">
       <div className="container-main">

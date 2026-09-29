@@ -203,3 +203,23 @@ SELECT * FROM v_thong_ke_dang_nhap;
 
 SELECT '=== ƒê∆†N H√ÄNG ===' AS '';
 SELECT * FROM v_don_hang_tong_quan;
+
+-- ================================================================
+-- B?NG 5: CHI TI?T –ON H¿NG (order_details)
+-- ================================================================
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `order_id`      VARCHAR(20) NOT NULL,
+  `product_id`    VARCHAR(10) NOT NULL,
+  `so_luong`      INT NOT NULL DEFAULT 1,
+  `don_gia`       DECIMAL(12,0) NOT NULL,
+  PRIMARY KEY (`order_id`, `product_id`),
+  CONSTRAINT `fk_od_order` FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_od_product` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `order_details` VALUES
+('DH001', 'p001', 1, 2800000),
+('DH001', 'p005', 1, 900000),
+('DH002', 'p002', 1, 2200000),
+('DH003', 'p006', 1, 1850000),
+('DH004', 'p007', 1, 4200000);

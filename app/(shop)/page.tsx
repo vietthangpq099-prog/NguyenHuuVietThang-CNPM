@@ -1,16 +1,16 @@
-import HeroBanner from '@/components/home/HeroBanner';
-import CategoryGrid from '@/components/home/CategoryGrid';
-import FeaturedProducts from '@/components/home/FeaturedProducts';
-import PromoSection from '@/components/home/PromoSection';
+import BannerTrangChu from '@/components/home/BannerTrangChu';
+import DanhMucTrangChu from '@/components/home/DanhMucTrangChu';
+import SanPhamNoiBat from '@/components/home/SanPhamNoiBat';
+import KhuVucGioiThieu from '@/components/home/KhuVucGioiThieu';
 
 export default function HomePage() {
   return (
     <>
-      <HeroBanner />
+      <BannerTrangChu />
        {/* Liên kết Banner hiện lên Trang chủ */}
-      <CategoryGrid />
-      <FeaturedProducts />
-      <PromoSection />
+      <DanhMucTrangChu />
+      <SanPhamNoiBat />
+      <KhuVucGioiThieu />
     </>
   );
 }

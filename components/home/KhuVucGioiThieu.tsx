@@ -47,7 +47,7 @@ const anhBanner = [
   },
 ];
 
-export default function PromoSection() {
+export default function KhuVucGioiThieu() {
   return (
     <>
       {/* Cam kết dịch vụ */}
