@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingCart, Search, Menu, X, ChevronDown, User, Eye } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, ChevronDown, User, Eye, Glasses } from 'lucide-react';
 import { useGioHang } from '@/lib/context/CartContext';
 
 const danhMuc = [
@@ -12,7 +12,7 @@ const danhMuc = [
   { tenHienThi: 'Kính Thời Trang', duongDan: '/san-pham?danh-muc=fashion', bieu: '✨' },
   { tenHienThi: 'Kính Thể Thao', duongDan: '/san-pham?danh-muc=sports', bieu: '🏃' },
 ];
-
+ /* SP- BH - VCT - TK */
 const menuDieuHuong = [
   { tenHienThi: 'Sản Phẩm', duongDan: '/san-pham', coDropdown: true },
   { tenHienThi: 'Bảo Hành', duongDan: '/bao-hanh', coDropdown: false },
@@ -73,14 +73,20 @@ export default function Header() {
       {/* Header chính */}
       <div className="container-main">
         <div className="flex items-center h-16 gap-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <div className="w-9 h-9 bg-neutral-950 rounded-xl flex items-center justify-center group-hover:bg-[#C9A84C] transition-colors duration-200">
-              <Eye size={20} className="text-white" />
+          {/* Logo optic-shop */}
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
+            {/* Vòng tròn gradient bọc icon Kính */}
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-950 flex items-center justify-center group-hover:shadow-[0_0_15px_rgba(201,168,76,0.4)] group-hover:scale-105 transition-all duration-300 border border-neutral-800">
+              <Glasses size={22} className="text-[#C9A84C]" />
             </div>
-            <div className="leading-none">
-              <span className="font-serif font-bold text-xl text-neutral-950 block">Optic</span>
-              <span className="text-xs text-[#C9A84C] font-semibold tracking-[0.2em] uppercase">Shop</span>
+            {/* Chữ Optic Shop xếp sang trọng */}
+            <div className="leading-none flex flex-col">
+              <span className="font-serif font-black text-2xl text-neutral-950 tracking-tight group-hover:text-[#C9A84C] transition-colors duration-300">
+                OPTIC
+              </span>
+              <span className="text-[10px] text-neutral-500 font-bold tracking-[0.3em] uppercase mt-0.5">
+                Eyewear
+              </span>
             </div>
           </Link>
 

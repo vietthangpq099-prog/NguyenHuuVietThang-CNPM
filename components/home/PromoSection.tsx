@@ -32,14 +32,14 @@ const anhBanner = [
     href: '/san-pham?danh-muc=sunglasses',
   },
   {
-    src: 'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=85&auto=format&fit=crop',
     alt: 'Kính thể thao',
     tieu_de: 'Kính Thể Thao',
     mo_ta: 'Hiệu năng vượt trội',
     href: '/san-pham?danh-muc=sports',
   },
   {
-    src: 'https://images.unsplash.com/photo-1604917877934-00b3a0f77e5a?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1582142306909-195724d33ffc?w=800&q=85&auto=format&fit=crop',
     alt: 'Kính cao cấp',
     tieu_de: 'Hàng Cao Cấp',
     mo_ta: 'Sang trọng & đẳng cấp',

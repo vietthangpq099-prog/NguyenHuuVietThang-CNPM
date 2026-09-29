@@ -1,23 +1,57 @@
 import { Product, Category } from '@/types';
 
-// Ảnh Unsplash thật — kính mắt chất lượng cao
+// Ảnh kính mắt thật — lấy từ Farello.vn (thương hiệu kính Việt chính hãng)
+const F = 'https://cdn.farello.vn/farello01/2026';
+const K = 'https://cdn.kinhmatlily.com/farello01/2026';
+
 const ANH_KINH = {
-  aviator:    'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=85&auto=format&fit=crop',
-  aviator2:   'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=85&auto=format&fit=crop',
-  square:     'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=800&q=85&auto=format&fit=crop',
-  square2:    'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=800&q=85&auto=format&fit=crop',
-  cateye:     'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=800&q=85&auto=format&fit=crop',
-  cateye2:    'https://images.unsplash.com/photo-1516714819001-8ee7a13b71d7?w=800&q=85&auto=format&fit=crop',
-  sport:      'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=800&q=85&auto=format&fit=crop',
-  sport2:     'https://images.unsplash.com/photo-1559826046-aaebcbe4424c?w=800&q=85&auto=format&fit=crop',
-  round:      'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=800&q=85&auto=format&fit=crop',
-  round2:     'https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=800&q=85&auto=format&fit=crop',
-  titanium:   'https://images.unsplash.com/photo-1604917877934-00b3a0f77e5a?w=800&q=85&auto=format&fit=crop',
-  titanium2:  'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=85&auto=format&fit=crop',
-  oval:       'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=85&auto=format&fit=crop',
-  oval2:      'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=85&auto=format&fit=crop',
-  gold:       'https://images.unsplash.com/photo-1589380890044-c7b9dc7a8ba0?w=800&q=85&auto=format&fit=crop',
-  gold2:      'https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=800&q=85&auto=format&fit=crop',
+  // SWITCHUP 01 — Acetate thời trang (dùng cho Aviator Classic)
+  aviator:   `${K}/6/swavt1-1781967577000.jpeg`,
+  aviator2:  `${K}/6/swh1-1781967590000.jpeg`,
+  aviatorA:  `${F}/6/avt1-1781962278000.jpeg`,
+  aviatorB:  `${F}/6/avt2-1781962284000.jpeg`,
+
+  // IV01 — Kính cận vuông sang trọng (dùng cho Square Premium)
+  square:    `${K}/6/iv1-1781968135000.jpeg`,
+  square2:   `${K}/6/iv1h-1781968144000.jpeg`,
+  squareA:   `${F}/6/avt1-1781962911000.jpeg`,
+  squareB:   `${F}/6/avt2-1781962914000.jpeg`,
+
+  // VIRGO 01 — Kính nữ tính duyên dáng (dùng cho Cat-Eye Rose)
+  cateye:    `${K}/6/vg01-1782046007000.jpeg`,
+  cateye2:   `${K}/6/vg01h-1782046046000.jpeg`,
+  cateyeA:   `${F}/6/avt1-1781962513000.jpeg`,
+  cateyeB:   `${F}/6/avt2-1781962489000.jpeg`,
+
+  // DT01 — Kính thể thao năng động (dùng cho Sport Pro)
+  sport:     `${K}/6/dt1-1781968060000.jpeg`,
+  sport2:    `${K}/6/dth1-1781968276000.jpeg`,
+  sportA:    `${F}/6/avt1-1781962759000.jpeg`,
+  sportB:    `${F}/6/avt2-1781962767000.jpeg`,
+
+  // DT02 — Kính tròn vintage (dùng cho Round Vintage)
+  round:     `${K}/6/dt2-1781968103000.jpeg`,
+  round2:    `${K}/6/dt2h-1781968114000.jpeg`,
+  roundA:    `${F}/6/avt1-1781962848000.jpeg`,
+  roundB:    `${F}/6/avt2-1781962851000.jpeg`,
+
+  // SWITCHUP 02 — Titanium mỏng nhẹ (dùng cho Titanium Slim)
+  titanium:  `${K}/8/Switchup 2-C02-4-1787040067000.jpeg`,
+  titanium2: `${K}/8/Switchup 2-C02-1-1787039923000.jpeg`,
+  titaniumA: `${F}/6/avt1-1781962383000.jpeg`,
+  titaniumB: `${F}/6/avt2-1781962384000.jpeg`,
+
+  // VIRGO 2 — Oval màu sắc (dùng cho Oval Colorful)
+  oval:      `${K}/8/Virgo 2-C02-3-1787040668000.jpeg`,
+  oval2:     `${K}/8/Virgo 2-C02-1-1787040672000.jpeg`,
+  ovalA:     `${F}/8/Virgo 2-C03-1-1787041601000.jpeg`,
+  ovalB:     `${F}/8/Virgo 2-C01-1-1787041009000.jpeg`,
+
+  // IV02 — Kính mạ vàng cao cấp (dùng cho Aviator Gold)
+  gold:      `${K}/6/iv2-1781968167000.jpeg`,
+  gold2:     `${K}/6/iv2h-1781968173000.jpeg`,
+  goldA:     `${F}/6/avt1-1781962983000.jpeg`,
+  goldB:     `${F}/6/avt2-1781962989000.jpeg`,
 };
 
 export const mockProducts: Product[] = [
@@ -28,7 +62,7 @@ export const mockProducts: Product[] = [
     description: 'Gọng kính aviator cổ điển với tròng kính chống UV400. Thiết kế bất hủ phù hợp mọi khuôn mặt, từ dạo phố đến đi biển.',
     price: 1850000,
     originalPrice: 2400000,
-    images: [ANH_KINH.aviator, ANH_KINH.aviator2],
+    images: [ANH_KINH.aviator, ANH_KINH.aviator2, ANH_KINH.aviatorA, ANH_KINH.aviatorB],
     category: 'sunglasses',
     frameShape: 'aviator',
     frameStyle: 'casual',
@@ -51,7 +85,7 @@ export const mockProducts: Product[] = [
     brand: 'VisonLux',
     description: 'Gọng vuông premium acetate cao cấp, phù hợp phong cách công sở và thời trang đường phố.',
     price: 2200000,
-    images: [ANH_KINH.square, ANH_KINH.square2],
+    images: [ANH_KINH.square, ANH_KINH.square2, ANH_KINH.squareA, ANH_KINH.squareB],
     category: 'eyeglasses',
     frameShape: 'square',
     frameStyle: 'luxury',
@@ -74,7 +108,7 @@ export const mockProducts: Product[] = [
     description: 'Gọng mắt mèo thanh lịch với điểm nhấn màu hồng rose gold, tôn lên vẻ đẹp nữ tính.',
     price: 1650000,
     originalPrice: 1950000,
-    images: [ANH_KINH.cateye, ANH_KINH.cateye2],
+    images: [ANH_KINH.cateye, ANH_KINH.cateye2, ANH_KINH.cateyeA, ANH_KINH.cateyeB],
     category: 'fashion',
     frameShape: 'cat-eye',
     frameStyle: 'vintage',
@@ -95,7 +129,7 @@ export const mockProducts: Product[] = [
     brand: 'SportOptix',
     description: 'Kính thể thao chuyên dụng với gọng TR90 siêu nhẹ, bền bỉ cho mọi hoạt động ngoài trời.',
     price: 1350000,
-    images: [ANH_KINH.sport, ANH_KINH.sport2],
+    images: [ANH_KINH.sport, ANH_KINH.sport2, ANH_KINH.sportA, ANH_KINH.sportB],
     category: 'sports',
     frameShape: 'rectangle',
     frameStyle: 'sport',
@@ -117,7 +151,7 @@ export const mockProducts: Product[] = [
     brand: 'RetroLens',
     description: 'Gọng tròn vintage teardrop lấy cảm hứng từ thập niên 70. Phong cách retro độc đáo.',
     price: 980000,
-    images: [ANH_KINH.round, ANH_KINH.round2],
+    images: [ANH_KINH.round, ANH_KINH.round2, ANH_KINH.roundA, ANH_KINH.roundB],
     category: 'eyeglasses',
     frameShape: 'round',
     frameStyle: 'vintage',
@@ -138,7 +172,7 @@ export const mockProducts: Product[] = [
     brand: 'VisonLux',
     description: 'Gọng titanium siêu mỏng và nhẹ. Sản phẩm cao cấp cho những ai yêu thích sự tinh tế tối giản.',
     price: 3500000,
-    images: [ANH_KINH.titanium, ANH_KINH.titanium2],
+    images: [ANH_KINH.titanium, ANH_KINH.titanium2, ANH_KINH.titaniumA, ANH_KINH.titaniumB],
     category: 'eyeglasses',
     frameShape: 'rectangle',
     frameStyle: 'minimalist',
@@ -159,7 +193,7 @@ export const mockProducts: Product[] = [
     brand: 'ChicVision',
     description: 'Gọng oval màu sắc rực rỡ từ acetate ý. Thể hiện cá tính trẻ trung, năng động.',
     price: 1200000,
-    images: [ANH_KINH.oval, ANH_KINH.oval2],
+    images: [ANH_KINH.oval, ANH_KINH.oval2, ANH_KINH.ovalA, ANH_KINH.ovalB],
     category: 'sunglasses',
     frameShape: 'oval',
     frameStyle: 'casual',
@@ -180,7 +214,7 @@ export const mockProducts: Product[] = [
     brand: 'RayStyle',
     description: 'Phiên bản đặc biệt gọng aviator với khung vàng 24k mạ. Định nghĩa lại sự sang trọng.',
     price: 4200000,
-    images: [ANH_KINH.gold, ANH_KINH.gold2],
+    images: [ANH_KINH.gold, ANH_KINH.gold2, ANH_KINH.goldA, ANH_KINH.goldB],
     category: 'sunglasses',
     frameShape: 'aviator',
     frameStyle: 'luxury',

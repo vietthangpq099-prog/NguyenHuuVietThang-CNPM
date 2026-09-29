@@ -7,6 +7,7 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner />
+       {/* Liên kết Banner hiện lên Trang chủ */}
       <CategoryGrid />
       <FeaturedProducts />
       <PromoSection />
