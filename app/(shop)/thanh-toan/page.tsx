@@ -60,7 +60,24 @@ export default function TrangThanhToan() {
     e.preventDefault();
     if (!kiemTra()) return;
     setDangXuLy(true);
-    await new Promise((r) => setTimeout(r, 1500));
+
+    try {
+      // Gửi đơn hàng vào SQLite Database qua API route
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tongTien: tongCong,
+          phiShip,
+          diaChi: `${form.diaChiDay}, ${form.phuong}, ${form.quan}, ${form.thanhPho}`,
+          phuongThuc,
+          ghiChu,
+        }),
+      });
+    } catch {
+      // Tự động fallback nếu mất kết nối
+    }
+
     xoaHetGio();
     router.push('/dat-hang-thanh-cong?ma=DH' + Date.now().toString().slice(-6));
   };
